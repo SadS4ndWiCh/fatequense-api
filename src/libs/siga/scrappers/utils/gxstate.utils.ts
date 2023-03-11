@@ -1,13 +1,14 @@
 import * as cheerio from 'cheerio';
 
 export function parseToJSON(gxstate: string) {
-	return JSON.parse(gxstate.replace(/\\>/g, '&gt;'));
+	return JSON.parse(gxstate.replace(/\\>/g, '&gt;')) as Record<string, any>;
 }
 
 export function getPrefixFromGXState(gxstate: string) {
 	const matchResult = gxstate.match(/MPW\d{4}/);
+	if (matchResult === null) return null;
 
-	return matchResult !== null ? matchResult[0] : null;
+	return matchResult[0];
 }
 
 export function extractGXStateOfHTML(html: string) {
@@ -24,9 +25,12 @@ export function extractGXStateOfHTML(html: string) {
 		parsed: gxstateParsed,
 		prefix: gxstatePrefix,
 
-		get(key: string, withPrefix = false) {
-			const _key = withPrefix ? gxstatePrefix + key : key;
-			return gxstateParsed[_key];
+		get(key: keyof GXState, withPrefix = false) {
+			if (withPrefix && gxstatePrefix === null) return null;
+			else if (withPrefix && gxstatePrefix)
+				return gxstateParsed[gxstatePrefix+key];
+
+			return gxstateParsed[key];
 		}
 	}
 }
