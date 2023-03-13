@@ -29,7 +29,7 @@ export function useCache(): UseCacheResponse {
 			const token = getAuthorizationToken(req.headers);
 			if (token === null) return done();
 
-			const response = cache.get(token);
+			const response = cache.get(`${token}-${req.routerPath}`);
 			if (!response) return done();
 
 			return reply
@@ -39,12 +39,13 @@ export function useCache(): UseCacheResponse {
 		},
 
 		onSend(req, res, payload, done) {
-			if (req.method !== 'GET') return done();
+			if (req.method !== 'GET' && res.statusCode < 200 && res.statusCode > 299)
+				return done();
 
 			const token = getAuthorizationToken(req.headers);
 			if (token === null) return done();
 
-			cache.set(token, payload);
+			cache.set(`${token}-${req.routerPath}`, payload);
 			done();
 		}
 	}
