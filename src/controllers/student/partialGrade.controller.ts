@@ -19,7 +19,7 @@ export async function partialGradeController(req: FastifyRequest, reply: Fastify
 
 	if (!success) return reply.status(500).send({ error: 'Failed to fetch page' });
 
-	const profile = getPartialGrade(extractGXStateOfHTML(html));
+	const partialGrade = getPartialGrade(extractGXStateOfHTML(html));
 
-	return { profile };
+	return { partialGrade };
 }
