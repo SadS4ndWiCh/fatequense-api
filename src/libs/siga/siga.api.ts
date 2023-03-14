@@ -1,7 +1,7 @@
 import type { IncomingHttpHeaders } from "http2";
 import { request } from "urllib";
 
-import { BASE_URL, ROUTES, USER_AGENT, GX_STATE, STATUS_REDIRECT } from "./siga.consts";
+import { BASE_URL, ROUTES, USER_AGENT, GX_STATE, STATUS_REDIRECT, AUTH_COOKIE_FIELD_NAME } from "./siga.consts";
 
 interface BuildRequestProps {
 	method: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH';
@@ -12,6 +12,7 @@ interface BuildRequestProps {
 
 interface GetRequestProps {
 	route: BuildRequestProps['route'];
+	token: string;
 	headers?: IncomingHttpHeaders;
 }
 
@@ -52,11 +53,14 @@ export function buildRequest({
 	};
 }
 
-export async function get({ route, headers }: GetRequestProps) {
+export async function get({ route, token, headers={} }: GetRequestProps) {
 	const req = buildRequest({
-		method: 'GET',
 		route,
-		headers
+		method: 'GET',
+		headers: {
+			cookie: `${AUTH_COOKIE_FIELD_NAME}=${token}`,
+			...headers
+		}
 	});
 
 	const { data, res } = await request(req.url, req.options);
