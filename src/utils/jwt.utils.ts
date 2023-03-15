@@ -1,4 +1,4 @@
-import { sign as jwtSign, verify as jwtVerify } from "jsonwebtoken";
+import { sign as jwtSign, verify as jwtVerify, decode as jwtDecode, JwtPayload } from "jsonwebtoken";
 import type { VerifyOptions, Algorithm, SignOptions } from "jsonwebtoken";
 
 import { env } from "./env.utils";
@@ -29,7 +29,7 @@ export function verify({ token, options }: VerifyProps) {
 	};
 
 	try {
-		return jwtVerify(token, env.JWT_SECRET_KEY, jwtOptions);
+		return jwtVerify(token, env.JWT_SECRET_KEY, jwtOptions) as JwtPayload;
 	} catch {
 		return null;
 	}
