@@ -39,7 +39,7 @@ export function useCache(): UseCacheResponse {
 		},
 
 		onSend(req, res, payload, done) {
-			if (req.method !== 'GET' && res.statusCode < 200 && res.statusCode > 299)
+			if (req.method !== 'GET' || res.statusCode < 200 || res.statusCode > 299)
 				return done();
 
 			const token = getAuthorizationToken(req.headers);
