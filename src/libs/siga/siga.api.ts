@@ -39,7 +39,7 @@ export function buildRequest({
 
 	if (method.toLowerCase() === 'post') {
 		headers['content-type'] = 'application/x-www-form-urlencoded';
-		data = { ...data, GX_STATE };
+		data = { ...data, GXState: GX_STATE };
 	}
 
 	return {
