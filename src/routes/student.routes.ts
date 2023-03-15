@@ -7,18 +7,21 @@ import {
 	profileController,
 	scheduleController
 } from "~/controllers/student";
+import { useAuth } from "~/hooks/auth.hook";
 import { useCache } from "~/hooks/cache.hook";
-import { isAuthenticated } from "~/libs/siga/siga.validations";
 
 export async function studentRoutes(app: FastifyInstance) {
 	const cache = useCache();
+	const auth = useAuth();
 
 	app.addHook('onRequest', cache.onRequest);
 	app.addHook('onSend', cache.onSend);
 
-	app.get('/profile', { preValidation: isAuthenticated }, profileController);
-	app.get('/history', { preValidation: isAuthenticated }, historyController);
-	app.get('/schedule', { preValidation: isAuthenticated }, scheduleController);
-	app.get('/partialGrade', { preValidation: isAuthenticated }, partialGradeController);
-	app.get('/partialAbsences', { preValidation: isAuthenticated }, partialAbsencesController);
+	app.addHook('onRequest', auth.isAuthenticated);
+
+	app.get('/profile', profileController);
+	app.get('/history', historyController);
+	app.get('/schedule', scheduleController);
+	app.get('/partialGrade', partialGradeController);
+	app.get('/partialAbsences', partialAbsencesController);
 }
