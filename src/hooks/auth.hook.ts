@@ -1,7 +1,7 @@
 import { onRequestHookHandler } from "fastify"
 import * as jwt from '~/utils/jwt.utils';
 
-import { getAuthorizationToken } from "~/libs/siga/siga.utils"
+import { getAuthorizationToken } from "~/utils/get-authorization-token.utils"
 
 type UseAuthResponse = {
 	isAuthenticated: onRequestHookHandler,
