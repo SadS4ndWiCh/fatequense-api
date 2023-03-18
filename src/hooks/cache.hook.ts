@@ -1,7 +1,7 @@
 import { onResponseHookHandler, onSendHookHandler } from "fastify";
 import NodeCache from 'node-cache';
 
-import { getAuthorizationToken } from "~/libs/siga/siga.utils";
+import { getAuthorizationToken } from "~/utils/get-authorization-token.utils";
 
 type UseCacheResponse = {
 	onRequest: onResponseHookHandler,
