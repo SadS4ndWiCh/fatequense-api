@@ -11,11 +11,11 @@ Uma api não oficial do Siga para conseguir pegar suas informações de estudant
 
 - [TypeScript](https://www.typescriptlang.org)
 - [Fastify](https://fastify.io)
-- [Jest](https://jestjs.io)
 - [Zod](https://zod.dev)
 - [JWT](https://jwt.io)
-- [urllib](https://github.com/node-modules/urllib)
+- [Urllib](https://github.com/node-modules/urllib)
 - [Cheerio](https://cheerio.js.org)
+- [Jest](https://jestjs.io)
 
 ## 🚀️ Rodando localmente
 
