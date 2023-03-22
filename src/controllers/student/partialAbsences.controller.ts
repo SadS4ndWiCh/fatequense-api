@@ -7,9 +7,7 @@ import { extractGXStateOfHTML } from "~/libs/siga/scrappers/utils/gxstate.utils"
 export async function partialAbsencesController(req: FastifyRequest, reply: FastifyReply) {
 	const token = req.headers.token as string;
 
-	const { data: html, success } = await get({ route: 'partialAbsences', token });
-
-	if (!success) return reply.status(500).send({ error: 'Failed to fetch page' });
+	const { data: html } = await get({ route: 'partialAbsences', token });
 
 	const partialAbsences = getPartialAbsences(extractGXStateOfHTML(html));
 
