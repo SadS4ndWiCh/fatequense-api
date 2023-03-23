@@ -1,11 +1,19 @@
 import dayjs from "dayjs";
 import { ExtractedGXState } from "../utils/gxstate.utils";
 
-function getDisciplineByCod(allDisciplines: unknown[], cod: string) {
-	return allDisciplines.find(
-		/* @ts-ignore */
-		discipline => discipline['ACD_DisciplinaSigla'] === cod
-	);
+function getDisciplineByCod(allDisciplines: IDisciplineRaw[], cod: string) {
+	for (const discipline of allDisciplines) {
+		if (discipline.ACD_DisciplinaSigla === cod) {
+			const title = discipline['ACD_DisciplinaNome'];
+			const [, name, hours] = title.match(/^(.+)<br&gt;(\d+)hs/) ?? [];
+
+			return {
+				name,
+				hoursPerLesson: Number(hours),
+				teacherName: discipline['Pro_PessoalNome'],
+			}
+		}
+	}
 }
 
 export function getSchedule({ $, ...gxstate }: ExtractedGXState) {
@@ -20,55 +28,31 @@ export function getSchedule({ $, ...gxstate }: ExtractedGXState) {
 	];
 
 	const today = dayjs();
+	const todayStr = today.format('YYYY-MM-DD');
 	const todayWeek = today.day();
 
 	const schedule = dataGridTags.map((tag, idx) => {
 		const dayLessons = JSON.parse($(tag).attr('value') || '{}') as string[][];
 		const currWeekday = idx + 1;
 
-		const daySchedule = dayLessons.map(lesson => {
+		return dayLessons.map(lesson => {
 			const [_, horaries, cod] = lesson;
 			const [startsAt, endsAt] = horaries.split('-');
-			const [startsHour, startsMinute] = startsAt.split('-');
-			const [endsHour, endsMinute] = endsAt.split('-');
-			
-			const startsAtDate = dayjs()
-				.set('hour', Number(startsHour))
-				.set('minute', Number(startsMinute));
 
-			const endsAtDate = dayjs()
-				.set('hour', Number(endsHour))
-				.set('minute', Number(endsMinute));
-			
-			let lessonDay = today.date();
-			if ((todayWeek === currWeekday && today > startsAtDate) || todayWeek > currWeekday) {
-				lessonDay += 7;
-			} else {
-				lessonDay += currWeekday - todayWeek;
-			}
+			const incDays = ((currWeekday - todayWeek + 7) % 7);
 
-			startsAtDate.set('date', lessonDay);
-			endsAtDate.set('date', lessonDay);
+			const startsAtDate = dayjs(`${todayStr} ${startsAt}`, 'DD/MM/YYYY HH:mm').add(incDays, 'day');
+			const endsAtDate = dayjs(`${todayStr} ${endsAt}`, 'DD/MM/YYYY HH:mm').add(incDays, 'day');
 
-			const disciplineRaw = getDisciplineByCod(allDisciplines, cod);
-			const discipline = disciplineRaw && {
-				/* @ts-ignore */
-				name: disciplineRaw['ACD_DisciplinaNome'],
-				/* @ts-ignore */
-				teacherName: disciplineRaw['Pro_PessoalNome'],
-			}
+			const discipline = getDisciplineByCod(allDisciplines, cod);
 
 			return {
 				cod,
+				startsAt: startsAtDate.format('DD/MM/YYYY HH:mm'),
+				endsAt: endsAtDate.format('DD/MM/YYYY HH:mm'),
 				discipline,
-				startsAt: startsAtDate,
-				endsAt: endsAtDate,
 			}
-		});
-
-		return daySchedule.sort(
-			(a, b) => dayjs(a.startsAt) < dayjs(b.startsAt) ? -1 : 1
-		);
+		}).sort((a, b) => dayjs(a.startsAt) < dayjs(b.startsAt) ? -1 : 1);
 	});
 	return schedule;
 }
