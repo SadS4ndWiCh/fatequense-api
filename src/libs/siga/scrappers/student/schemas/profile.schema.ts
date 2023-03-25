@@ -4,7 +4,6 @@ export const studentProfileSchema = z.object({
 	name: z.string().min(1),
 	personalEmail: z.string().email(),
 	institutionalEmail: z.string().email(),
-	cpf: z.string(),
 	birthday: z.string(),
 	averageGrade: z.number(),
 	progression: z.number(),

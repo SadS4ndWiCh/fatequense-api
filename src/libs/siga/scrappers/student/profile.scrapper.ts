@@ -10,7 +10,6 @@ export function getStudentProfile({ $, ...gxstate }: ExtractedGXState) {
 		name: toTitleCase(gxstate.get('vPRO_PESSOALNOME').replace(' -', '')),
 		personalEmail: gxstate.get('vPRO_PESSOALEMAIL'),
 		institutionalEmail: gxstate.get('vINSTITUCIONALFATEC', true),
-		cpf: gxstate.get('vPRO_PESSOALDOCSCPF'),
 		birthday: gxstate.get('vPRO_PESSOALDATANASCIMENTO'),
 		averageGrade: Number(gxstate.get('vACD_ALUNOCURSOINDICEPR', true)),
 		progression: Number(gxstate.get('vACD_ALUNOCURSOINDICEPP', true)),
