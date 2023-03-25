@@ -20,11 +20,8 @@ export async function studentRoutes(app: FastifyInstance) {
 	const auth = useAuth();
 
 	app.setErrorHandler((err, req, reply) => {
-		if (err instanceof SigaError) {
-			return reply.status(err.statusCode).send(err.serialize());
-		} else if (err?.statusCode === 429) {
-			return reply.status(429).send(err);
-		}
+		if (err instanceof SigaError) return err.throwStatusError(reply);
+		else if (err?.statusCode === 429) return reply.status(429).send(err);
 
 		return reply.status(500).send({
 			statusCode: 500,
