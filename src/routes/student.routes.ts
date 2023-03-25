@@ -14,7 +14,7 @@ import { useRateLimit } from "~/hooks/rate-limit.hook";
 import { SigaError } from "~/libs/siga/errors/SigaError.error";
 
 export async function studentRoutes(app: FastifyInstance) {
-	await useRateLimit(app, { max: 2 });
+	await useRateLimit(app, { max: 20 });
 
 	const cache = useCache();
 	const auth = useAuth();
