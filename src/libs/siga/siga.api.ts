@@ -2,6 +2,7 @@ import type { IncomingHttpHeaders } from "http2";
 import { request } from "urllib";
 
 import { BASE_URL, ROUTES, USER_AGENT, GX_STATE, STATUS_REDIRECT, AUTH_COOKIE_FIELD_NAME } from "./siga.consts";
+import { FailedToFetch } from "./errors/FailedToFetch.error";
 
 interface BuildRequestProps {
 	method: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH';
@@ -64,10 +65,13 @@ export async function get({ route, token, headers={} }: GetRequestProps) {
 	});
 
 	const { data, res } = await request(req.url, req.options);
+	const success = res.statusCode !== STATUS_REDIRECT;
+
+	if (!success)
+		throw new FailedToFetch();
 
 	return {
 		data: data.toString('utf-8'),
-		success: res.statusCode !== STATUS_REDIRECT,
 	};
 }
 

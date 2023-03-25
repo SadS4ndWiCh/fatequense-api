@@ -28,9 +28,5 @@ export function verify({ token, options }: VerifyProps) {
 		...options
 	};
 
-	try {
-		return jwtVerify(token, env.JWT_SECRET_KEY, jwtOptions) as JwtPayload;
-	} catch {
-		return null;
-	}
+	return jwtVerify(token, env.JWT_SECRET_KEY, jwtOptions) as JwtPayload;
 }

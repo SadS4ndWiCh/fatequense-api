@@ -1,4 +1,4 @@
-import { onResponseHookHandler, onSendHookHandler } from "fastify";
+import type { onResponseHookHandler, onSendHookHandler } from "fastify";
 import NodeCache from 'node-cache';
 
 import { getAuthorizationToken } from "~/utils/get-authorization-token.utils";

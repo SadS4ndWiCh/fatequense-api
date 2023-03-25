@@ -1,7 +1,7 @@
 import * as cheerio from 'cheerio';
 
 export function parseToJSON(gxstate: string) {
-	return JSON.parse(gxstate.replace(/\\>/g, '&gt;')) as Record<string, any>;
+	return JSON.parse(gxstate.replace(/\\>/g, '&gt;')) as GXState;
 }
 
 export function getPrefixFromGXState(gxstate: string) {
@@ -25,10 +25,11 @@ export function extractGXStateOfHTML(html: string) {
 		parsed: gxstateParsed,
 		prefix: gxstatePrefix,
 
-		get(key: keyof GXState, withPrefix = false) {
-			if (withPrefix && gxstatePrefix === null) return null;
-			else if (withPrefix && gxstatePrefix)
-				return gxstateParsed[gxstatePrefix+key];
+		get<GKey extends keyof GXState>(key: GKey, withPrefix = false): GXState[GKey] {
+			if (withPrefix && gxstatePrefix) {
+				const prefixedKey = `${gxstatePrefix}${key}` as GKey;
+				return gxstateParsed[prefixedKey];
+			}
 
 			return gxstateParsed[key];
 		}
