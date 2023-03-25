@@ -1,10 +1,7 @@
 import { SigaError } from "./SigaError.error";
 
 export class FailedToFetch extends SigaError {
-	constructor() {
-		super();
-
-		this.statusCode = 400;
-		this.errorMessage = 'Could not reach the Siga page. The authorization token expires or it missing?';
-	}
+	public statusCode = 400;
+	public errorTitle = 'SIGA page not reached';
+	public errorMessage = 'The authorization token expires or it missing?';
 }
