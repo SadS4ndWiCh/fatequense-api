@@ -1,4 +1,4 @@
-import { onRequestHookHandler } from "fastify"
+import type { onRequestHookHandler } from "fastify"
 import { TokenExpiredError, JsonWebTokenError } from "jsonwebtoken";
 import * as jwt from '~/utils/jwt.utils';
 

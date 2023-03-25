@@ -1,4 +1,4 @@
-import { FastifyInstance } from "fastify";
+import type { FastifyInstance } from "fastify";
 
 import { loginController } from "~/controllers/auth/login.controller";
 import { useRateLimit } from "~/hooks/rate-limit.hook";

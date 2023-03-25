@@ -1,4 +1,4 @@
-import { FastifyReply, FastifyRequest } from "fastify";
+import type { FastifyReply, FastifyRequest } from "fastify";
 
 import { get } from "~/libs/siga/siga.api";
 import { getPartialAbsences } from "~/libs/siga/scrappers/student/partialAbsences.scrapper";
