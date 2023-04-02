@@ -7,7 +7,7 @@ import { extractGXStateOfHTML } from "~/libs/siga/scrappers/utils/gxstate.utils"
 export async function partialGradeController(req: FastifyRequest, reply: FastifyReply) {
 	const token = req.headers.token as string;
 
-	const { data: html } = await get({ route: 'partialGrade', token });
+	const { data: html } = await get({ route: '/aluno/notasparciais.aspx', token });
 
 	const partialGrade = getPartialGrade(extractGXStateOfHTML(html));
 

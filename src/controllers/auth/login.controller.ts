@@ -16,7 +16,7 @@ export async function loginController(req: FastifyRequest, reply: FastifyReply) 
 	const { username, password } = loginBodySchema.parse(req.body);
 
 	const { res } = await post({
-		route: 'login',
+		route: '/aluno/login.aspx',
 		data: {
 			[USER_INPUT_ID]: username,
 			[PASS_INPUT_ID]: password
