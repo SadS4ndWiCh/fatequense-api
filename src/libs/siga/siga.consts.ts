@@ -22,4 +22,4 @@ export const ROUTES = {
 	examsCalendar: '/aluno/calendarioprovas.aspx',
 	schoolGrade: '/aluno/historicograde.aspx',
 	history: '/aluno/historicocompleto.aspx',
-};
+} as const;
