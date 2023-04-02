@@ -6,55 +6,42 @@ import { FailedToFetch } from "./errors/FailedToFetch.error";
 
 interface BuildRequestProps {
 	method: 'GET' | 'HEAD' | 'POST' | 'PUT' | 'DELETE' | 'CONNECT' | 'OPTIONS' | 'TRACE' | 'PATCH';
-	route: keyof typeof ROUTES;
+	route: ValueOf<typeof ROUTES>;
 	headers?: IncomingHttpHeaders;
 	data?: any;
 }
 
-interface GetRequestProps {
-	route: BuildRequestProps['route'];
+type GetRequestProps = Omit<BuildRequestProps, 'method' | 'data'> & {
 	token: string;
-	headers?: IncomingHttpHeaders;
 }
 
-interface PostRequestProps {
-	route: BuildRequestProps['route'];
-	data?: any;
-}
+type PostRequestProps = Omit<BuildRequestProps, 'method'>;
 
 export function buildRequest({
 	method,
 	route,
-	headers,
-	data
+	headers = {},
+	data = {}
 }: BuildRequestProps) {
-	headers = {
-		...headers,
-		'user-agent': USER_AGENT,
-		origin: BASE_URL,
-	};
-
-	const url = route.startsWith('http')
-		? route
-		: `${BASE_URL}${ROUTES[route]}`;
+	const url = new URL(route, BASE_URL);
 
 	if (method.toLowerCase() === 'post') {
 		headers['content-type'] = 'application/x-www-form-urlencoded';
-		data = { ...data, GXState: GX_STATE };
+		data = data.GXState ? data : { ...data, GXState: GX_STATE };
 	}
 
 	return {
-		url,
+		url: url.href,
 		options: {
 			data,
-			headers,
+			headers: { ...headers, 'user-agent': USER_AGENT, origin: BASE_URL },
 			method,
 			maxRedirects: 0,
 		}
 	};
 }
 
-export async function get({ route, token, headers={} }: GetRequestProps) {
+export async function get({ route, token, headers }: GetRequestProps) {
 	const req = buildRequest({
 		route,
 		method: 'GET',
@@ -67,19 +54,21 @@ export async function get({ route, token, headers={} }: GetRequestProps) {
 	const { data, res } = await request(req.url, req.options);
 	const success = res.statusCode !== STATUS_REDIRECT;
 
-	if (!success)
+	if (!success) {
 		throw new FailedToFetch();
+	}
 
 	return {
 		data: data.toString('utf-8'),
 	};
 }
 
-export async function post({ route, data }: PostRequestProps) {
+export async function post({ route, data, headers }: PostRequestProps) {
 	const req = buildRequest({
 		method: 'POST',
 		route,
-		data
+		data,
+		headers
 	});
 
 	return await request(req.url, req.options);
