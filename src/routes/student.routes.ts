@@ -11,23 +11,11 @@ import { useAuth } from "~/hooks/auth.hook";
 import { useCache } from "~/hooks/cache.hook";
 import { useRateLimit } from "~/hooks/rate-limit.hook";
 
-import { SigaError } from "~/libs/siga/errors/SigaError.error";
-
 export async function studentRoutes(app: FastifyInstance) {
 	await useRateLimit(app, { max: 20 });
 
 	const cache = useCache();
 	const auth = useAuth();
-
-	app.setErrorHandler((err, req, reply) => {
-		if (err instanceof SigaError) return err.throwStatusError(reply);
-		else if (err?.statusCode === 429) return reply.status(429).send(err);
-
-		return reply.status(500).send({
-			statusCode: 500,
-			error: 'Internal Server Error'
-		})
-	});
 
 	app.addHook('onRequest', auth.isAuthenticated);
 
