@@ -1,13 +1,6 @@
-import { historyController } from "./history.controller";
-import { partialAbsencesController } from "./partialAbsences.controller";
-import { partialGradeController } from "./partialGrade.controller";
-import { profileController } from "./profile.controller";
-import { scheduleController } from "./schedule.controller";
-
-export {
-	profileController,
-	historyController,
-	scheduleController,
-	partialGradeController,
-	partialAbsencesController,
-}
+export { historyController } from "./history.controller";
+export { partialAbsencesController } from "./partialAbsences.controller";
+export { partialGradeController } from "./partialGrade.controller";
+export { profileController } from "./profile.controller";
+export { scheduleController } from "./schedule.controller";
+export * as disciplines from "./disciplines";
