@@ -1,6 +1,6 @@
 import { ExtractedGXState } from "../utils/gxstate.utils";
 import { disciplineSchema } from "./schemas/discipline.schema";
-import { DisciplineNotFound } from "../../errors/DisciplineNotFound.error";
+import { DisciplineNotFound } from "../../errors/discipline-not-found.error";
 import { MINIMUM_ATTENDANCE_PERCENTAGE } from "../../siga.consts";
 
 export function getDiscipline({ $ }: ExtractedGXState) {

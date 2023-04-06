@@ -1,6 +1,6 @@
 import { ExtractedGXState } from "../utils/gxstate.utils";
 
-import { studentPartialAbsencesSchema } from "./schemas/partialAbsences.schema";
+import { studentPartialAbsencesSchema } from "./schemas/partial-absences.schema";
 
 export function getPartialAbsences({ $, ...gxstate }: ExtractedGXState) {
 	return studentPartialAbsencesSchema.parse(gxstate

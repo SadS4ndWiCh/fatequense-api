@@ -1,6 +1,6 @@
 import { ExtractedGXState } from "../utils/gxstate.utils";
 
-import { studentPartialGradeSchema } from "./schemas/partialGrade.schema";
+import { studentPartialGradeSchema } from "./schemas/partial-grade.schema";
 
 export function getPartialGrade({ $, ...gxstate }: ExtractedGXState) {
 	return studentPartialGradeSchema.parse(gxstate

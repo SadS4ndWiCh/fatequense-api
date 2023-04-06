@@ -1,5 +1,5 @@
 import type { FastifyError, FastifyReply, FastifyRequest } from "fastify";
-import { SigaError } from "~/libs/siga/errors/SigaError.error";
+import { SigaError } from "~/libs/siga/errors/siga-error.error";
 
 export function defaultErrorHandler(err: FastifyError, req: FastifyRequest, reply: FastifyReply) {
 	if (err instanceof SigaError) return err.throwStatusError(reply);
