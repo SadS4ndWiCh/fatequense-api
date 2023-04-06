@@ -1,0 +1,1 @@
+export { disciplineController } from './discipline.controller';
