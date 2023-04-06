@@ -9,6 +9,7 @@ interface BuildRequestProps {
 	route: ValueOf<typeof ROUTES>;
 	headers?: IncomingHttpHeaders;
 	data?: any;
+	params?: string;
 }
 
 type GetRequestProps = Omit<BuildRequestProps, 'method' | 'data'> & {
@@ -21,9 +22,11 @@ export function buildRequest({
 	method,
 	route,
 	headers = {},
-	data = {}
+	data = {},
+	params = ''
 }: BuildRequestProps) {
 	const url = new URL(route, BASE_URL);
+	url.search = params;
 
 	if (method.toLowerCase() === 'post') {
 		headers['content-type'] = 'application/x-www-form-urlencoded';
@@ -41,14 +44,15 @@ export function buildRequest({
 	};
 }
 
-export async function get({ route, token, headers }: GetRequestProps) {
+export async function get({ route, token, headers, params }: GetRequestProps) {
 	const req = buildRequest({
 		route,
 		method: 'GET',
 		headers: {
 			cookie: `${AUTH_COOKIE_FIELD_NAME}=${token}`,
 			...headers
-		}
+		},
+		params
 	});
 
 	const { data, res } = await request(req.url, req.options);
@@ -63,12 +67,13 @@ export async function get({ route, token, headers }: GetRequestProps) {
 	};
 }
 
-export async function post({ route, data, headers }: PostRequestProps) {
+export async function post({ route, data, headers, params }: PostRequestProps) {
 	const req = buildRequest({
 		method: 'POST',
 		route,
 		data,
-		headers
+		headers,
+		params
 	});
 
 	return await request(req.url, req.options);
