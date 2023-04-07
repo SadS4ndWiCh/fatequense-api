@@ -13,6 +13,7 @@ export function getDiscipline({ $ }: ExtractedGXState) {
 	return disciplineSchema.parse({
 		name: $('#span_W0005vACD_DISCIPLINANOME').text(),
 		code: $('#span_W0005vSHOW_ACD_DISCIPLINASIGLA').text(),
+		class: $('#span_W0005vACD_TURMALETRA').text(),
 		teacherName: $('#span_W0005vPRO_PESSOALNOME').text(),
 		syllabus: $('#span_W0008W0013vACD_DISCIPLINAEMENTA').text(),
 		goal: $('#span_W0008W0013vACD_DISCIPLINAOBJETIVO').text(),
