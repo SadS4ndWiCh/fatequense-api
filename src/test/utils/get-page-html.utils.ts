@@ -7,6 +7,7 @@ const HTML_PAGES_PATH = {
 	partialAbsences: path.join(__dirname, '..', 'sources', 'pages', 'partialAbsences.html'),
 	schedule: path.join(__dirname, '..', 'sources', 'pages', 'schedule.html'),
 	history: path.join(__dirname, '..', 'sources', 'pages', 'history.html'),
+	discipline: path.join(__dirname, '..', 'sources', 'pages', 'discipline.html'),
 };
 
 export function getPageHtml(page: keyof typeof HTML_PAGES_PATH) {
