@@ -18,7 +18,7 @@ interface IDisciplinePartialGrade {
 
 interface IDisciplineLessons {
 	title: string;
-	date: string;
+	date: string | null;
 	presences: number;
 	absences: number;
 }
@@ -67,6 +67,6 @@ interface IDisciplineHistory {
 	finalGrade: number;
 	totalAbscences: number;
 	presenceFrequency: number;
-	renunciationAt: string;
+	renunciationAt: string | null;
 	isApproved: boolean;
 }
