@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { ExtractedGXState } from "../utils/gxstate.utils";
 
 import { studentPartialGradeSchema } from "./schemas/partial-grade.schema";
@@ -12,7 +13,8 @@ export function getPartialGrade({ $, ...gxstate }: ExtractedGXState) {
 				averageGrade: discipline['ACD_AlunoHistoricoItemMediaFinal'],
 				examsDates: discipline['Datas'].map((examDate) => ({
 						title: examDate['ACD_PlanoEnsinoAvaliacaoTitulo'],
-						startsAt: examDate['ACD_PlanoEnsinoAvaliacaoDataPrevista'],
+						startsAt: dayjs(examDate['ACD_PlanoEnsinoAvaliacaoDataPrevista'])
+							.toISOString(),
 						grade: examDate['Avaliacoes'].length > 0
 							? examDate['Avaliacoes'][0]['ACD_PlanoEnsinoAvaliacaoParcialNota']
 							: 0,
