@@ -7,7 +7,7 @@ export const historySchema = z.array(
 		description: z.string(),
 		finalGrade: z.number(),
 		presenceFrequency: z.number(),
-		renunciationAt: z.string(),
+		renunciationAt: z.string().nullable(),
 		isApproved: z.boolean()
 	})
 );
