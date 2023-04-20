@@ -1,4 +1,4 @@
-import { SigaError } from "./SigaError.error";
+import { SigaError } from "./siga-error.error";
 
 export class FailedToLogin extends SigaError {
 	public statusCode = 400;

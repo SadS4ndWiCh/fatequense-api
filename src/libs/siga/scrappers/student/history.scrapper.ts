@@ -13,8 +13,10 @@ export function getHistory({ $, ...gxstate }: ExtractedGXState) {
 				totalAbscences: disciplineHistory['ACD_AlunoHistoricoItemQtdFaltas'],
 				presenceFrequency:
 					disciplineHistory['ACD_AlunoHistoricoItemFrequencia'] / 100,
-				renunciationAt:
-					disciplineHistory['ACD_AlunoHistoricoItemDesistenciaData'],
+				renunciationAt: !disciplineHistory['ACD_AlunoHistoricoItemDesistenciaData']
+					.startsWith('0000')
+						? disciplineHistory['ACD_AlunoHistoricoItemDesistenciaData']
+						: null,
 				isApproved: disciplineHistory['ACD_AlunoHistoricoItemAprovada'] === 1,
 			})
 		))

@@ -9,7 +9,7 @@ export const studentPartialAbsencesSchema = z.array(
 		lessons: z.array(
 			z.object({
 				title: z.string(),
-				date: z.string(),
+				date: z.string().nullable(),
 				presences: z.number(),
 				absences: z.number(),
 			})

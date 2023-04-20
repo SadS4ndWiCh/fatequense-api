@@ -1,4 +1,4 @@
-import { SigaError } from "./SigaError.error";
+import { SigaError } from "./siga-error.error";
 
 export class AuthorizationTokenExpired extends SigaError {
 	public statusCode = 401;

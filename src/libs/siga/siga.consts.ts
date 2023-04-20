@@ -22,4 +22,7 @@ export const ROUTES = {
 	examsCalendar: '/aluno/calendarioprovas.aspx',
 	schoolGrade: '/aluno/historicograde.aspx',
 	history: '/aluno/historicocompleto.aspx',
-};
+	disciplines: '/aluno/planoensino.aspx',
+} as const;
+
+export const MINIMUM_ATTENDANCE_PERCENTAGE = 0.75;

@@ -7,7 +7,7 @@ import { extractGXStateOfHTML } from "~/libs/siga/scrappers/utils/gxstate.utils"
 export async function historyController(req: FastifyRequest, reply: FastifyReply) {
 	const token = req.headers.token as string;
 
-	const { data: html } = await get({ route: 'history', token });
+	const { data: html } = await get({ route: '/aluno/historicocompleto.aspx', token });
 
 	const history = getHistory(extractGXStateOfHTML(html));
 
