@@ -48,8 +48,8 @@ export function getSchedule({ $, ...gxstate }: ExtractedGXState) {
 
 			return {
 				cod,
-				startsAt: startsAtDate.format('DD/MM/YYYY HH:mm'),
-				endsAt: endsAtDate.format('DD/MM/YYYY HH:mm'),
+				startsAt: startsAtDate.toISOString(),
+				endsAt: endsAtDate.toISOString(),
 				discipline,
 			}
 		}).sort((a, b) => dayjs(a.startsAt) < dayjs(b.startsAt) ? -1 : 1);
