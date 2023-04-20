@@ -9,7 +9,11 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "start": "node ./dist/main.js",
+    "format": "prettier --write \"./src/**/*ts\"",
+    "lint": "eslint \"./src/**/*.ts\" --fix",
+
     "dev": "tsx watch ./src/main.ts",
+
     "test": "jest",
     "test:watch": "jest --watch"
   },
