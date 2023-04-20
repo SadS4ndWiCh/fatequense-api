@@ -7,6 +7,8 @@
   "license": "ISC",
   "main": "./src/main.ts",
   "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "start": "node ./dist/main.js",
     "dev": "tsx watch ./src/main.ts",
     "test": "jest",
     "test:watch": "jest --watch"
