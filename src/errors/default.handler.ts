@@ -7,6 +7,7 @@ export function defaultErrorHandler(err: FastifyError, req: FastifyRequest, repl
 
 	return reply.status(500).send({
 		statusCode: 500,
-		error: 'Internal Server Error'
+		error: 'Internal Server Error',
+		message: err.message,
 	})
 }
