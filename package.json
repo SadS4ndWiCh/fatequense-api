@@ -8,7 +8,7 @@
   "main": "./src/main.ts",
   "scripts": {
     "prebuild": "rimraf ./dist",
-    "build": "tsc -p tsconfig.build.json",
+    "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
     "start": "node ./dist/main.js",
     "format": "prettier --write \"./src/**/*ts\"",
     "lint": "eslint \"./src/**/*.ts\" --fix",
