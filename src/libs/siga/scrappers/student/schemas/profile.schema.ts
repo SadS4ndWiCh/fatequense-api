@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 export const studentProfileSchema = z.object({
   name: z.string().min(1),
+  ra: z.string().nonempty(),
   personalEmail: z.string().email(),
   institutionalEmail: z.string().email(),
   birthday: z.string(),
