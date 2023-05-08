@@ -8,6 +8,7 @@ export function getStudentProfile({ $, ...gxstate }: ExtractedGXState) {
 
   return studentProfileSchema.parse({
     name: toTitleCase(gxstate.get('vPRO_PESSOALNOME').replace(' -', '')),
+    ra: gxstate.get('vACD_ALUNOCURSOREGISTROACADEMICOCURSO', true),
     personalEmail: gxstate.get('vPRO_PESSOALEMAIL'),
     institutionalEmail: gxstate.get('vINSTITUCIONALFATEC', true),
     birthday: gxstate.get('vPRO_PESSOALDATANASCIMENTO'),
