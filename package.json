@@ -6,6 +6,9 @@
   "keywords": [],
   "license": "ISC",
   "main": "./src/main.ts",
+  "engines": {
+    "node": "18"
+  },
   "scripts": {
     "prebuild": "rimraf ./dist",
     "build": "tsup ./src",
