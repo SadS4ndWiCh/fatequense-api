@@ -1,5 +1,5 @@
-import { sign as jwtSign, verify as jwtVerify, JwtPayload } from 'jsonwebtoken';
-import type { VerifyOptions, Algorithm, SignOptions } from 'jsonwebtoken';
+import { JwtPayload, sign as jwtSign, verify as jwtVerify } from 'jsonwebtoken';
+import type { Algorithm, SignOptions, VerifyOptions } from 'jsonwebtoken';
 
 import { env } from './env.utils';
 

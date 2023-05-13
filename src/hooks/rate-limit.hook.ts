@@ -1,5 +1,5 @@
-import type { FastifyInstance } from 'fastify';
 import type { RateLimitOptions } from '@fastify/rate-limit';
+import type { FastifyInstance } from 'fastify';
 
 export async function useRateLimit(
   app: FastifyInstance,

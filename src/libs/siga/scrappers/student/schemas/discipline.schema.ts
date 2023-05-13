@@ -1,4 +1,5 @@
 import { z } from 'zod';
+
 import { toTitleCase } from '../../utils/to-title-case.utils';
 
 export const disciplineSchema = z.object({

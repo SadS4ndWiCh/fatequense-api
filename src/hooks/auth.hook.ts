@@ -1,11 +1,12 @@
 import type { onRequestHookHandler } from 'fastify';
-import { TokenExpiredError, JsonWebTokenError } from 'jsonwebtoken';
-import * as jwt from '~/utils/jwt.utils';
+import { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
 
-import { getAuthorizationToken } from '~/utils/get-authorization-token.utils';
 import { AuthorizationTokenExpired } from '~/libs/siga/errors/authorization-token-expired.error';
 import { InvalidAuthorizationToken } from '~/libs/siga/errors/invalid-authorization-token.error';
 import { MissingAuthorizationToken } from '~/libs/siga/errors/missing-authorization-token.error';
+
+import { getAuthorizationToken } from '~/utils/get-authorization-token.utils';
+import * as jwt from '~/utils/jwt.utils';
 
 type UseAuthResponse = {
   isAuthenticated: onRequestHookHandler;

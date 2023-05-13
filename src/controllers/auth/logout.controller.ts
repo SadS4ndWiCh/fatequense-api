@@ -1,12 +1,12 @@
 import { FastifyRequest } from 'fastify';
 
-import { get, post } from '~/libs/siga/siga.api';
+import { FailedToLogout } from '~/libs/siga/errors/failed-to-logout.error';
 import { extractGXStateOfHTML } from '~/libs/siga/scrappers/utils/gxstate.utils';
+import { get, post } from '~/libs/siga/siga.api';
 import {
   AUTH_COOKIE_FIELD_NAME,
   STATUS_REDIRECT,
 } from '~/libs/siga/siga.consts';
-import { FailedToLogout } from '~/libs/siga/errors/failed-to-logout.error';
 
 async function getLogoutEvent(token: string) {
   const { data: html } = await get({

@@ -1,6 +1,7 @@
 import type { FastifyInstance } from 'fastify';
 
 import * as student from '~/controllers/student';
+
 import { useAuth } from '~/hooks/auth.hook';
 import { useCache } from '~/hooks/cache.hook';
 import { useRateLimit } from '~/hooks/rate-limit.hook';

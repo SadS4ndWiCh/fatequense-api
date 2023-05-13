@@ -1,7 +1,8 @@
-import { getPageHtml } from '~/test/utils/get-page-html.utils';
 import { extractGXStateOfHTML } from '../utils/gxstate.utils';
-import { getDiscipline } from './discipline.scrapper';
+import { getPageHtml } from '~/test/utils/get-page-html.utils';
+
 import { MINIMUM_ATTENDANCE_PERCENTAGE } from '../../siga.consts';
+import { getDiscipline } from './discipline.scrapper';
 
 describe('Discipline scrapper function', () => {
   it('should be able to get student discipline details from HTML', () => {

@@ -1,5 +1,6 @@
-import { getPageHtml } from '~/test/utils/get-page-html.utils';
 import { extractGXStateOfHTML } from '../utils/gxstate.utils';
+import { getPageHtml } from '~/test/utils/get-page-html.utils';
+
 import { getPartialAbsences } from './partial-absences.scrapper';
 
 describe('Partial Absences scrapper function', () => {

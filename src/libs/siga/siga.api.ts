@@ -1,15 +1,16 @@
 import type { IncomingHttpHeaders } from 'http2';
 import { request } from 'urllib';
 
-import {
-  BASE_URL,
-  ROUTES,
-  USER_AGENT,
-  GX_STATE,
-  STATUS_REDIRECT,
-  AUTH_COOKIE_FIELD_NAME,
-} from './siga.consts';
 import { FailedToFetch } from './errors/failed-to-fetch.error';
+
+import {
+  AUTH_COOKIE_FIELD_NAME,
+  BASE_URL,
+  GX_STATE,
+  ROUTES,
+  STATUS_REDIRECT,
+  USER_AGENT,
+} from './siga.consts';
 
 interface BuildRequestProps {
   method:

@@ -1,7 +1,7 @@
 import type { FastifyRequest } from 'fastify';
 import { z } from 'zod';
 
-import * as jwt from '~/utils/jwt.utils';
+import { FailedToLogin } from '~/libs/siga/errors/failed-to-login.error';
 import { post } from '~/libs/siga/siga.api';
 import {
   AUTH_COOKIE_FIELD_NAME,
@@ -9,8 +9,9 @@ import {
   STATUS_REDIRECT,
   USER_INPUT_ID,
 } from '~/libs/siga/siga.consts';
+
+import * as jwt from '~/utils/jwt.utils';
 import { parseCookie } from '~/utils/parse-cookie.utils';
-import { FailedToLogin } from '~/libs/siga/errors/failed-to-login.error';
 
 export const loginBodySchema = z.object({
   username: z.string().min(1),

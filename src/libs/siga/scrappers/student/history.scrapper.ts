@@ -1,4 +1,5 @@
 import { ExtractedGXState } from '../utils/gxstate.utils';
+
 import { historySchema } from './schemas/history.schema';
 
 export function getHistory({ $, ...gxstate }: ExtractedGXState) {

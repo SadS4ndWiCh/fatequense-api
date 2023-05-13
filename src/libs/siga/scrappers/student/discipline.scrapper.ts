@@ -1,7 +1,9 @@
-import { ExtractedGXState } from '../utils/gxstate.utils';
-import { disciplineSchema } from './schemas/discipline.schema';
 import { DisciplineNotFound } from '../../errors/discipline-not-found.error';
+
+import { ExtractedGXState } from '../utils/gxstate.utils';
+
 import { MINIMUM_ATTENDANCE_PERCENTAGE } from '../../siga.consts';
+import { disciplineSchema } from './schemas/discipline.schema';
 
 export function getDiscipline({ $ }: ExtractedGXState) {
   const isDisciplineInvalid = !!$('#gxErrorViewer').text();

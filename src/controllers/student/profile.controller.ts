@@ -1,8 +1,8 @@
 import type { FastifyRequest } from 'fastify';
 
-import { get } from '~/libs/siga/siga.api';
 import { getStudentProfile } from '~/libs/siga/scrappers/student/profile.scrapper';
 import { extractGXStateOfHTML } from '~/libs/siga/scrappers/utils/gxstate.utils';
+import { get } from '~/libs/siga/siga.api';
 
 export async function profileController(req: FastifyRequest) {
   const token = req.headers.token as string;

@@ -1,8 +1,8 @@
 import type { FastifyRequest } from 'fastify';
 
-import { get } from '~/libs/siga/siga.api';
 import { getSchedule } from '~/libs/siga/scrappers/student/schedule.scrapper';
 import { extractGXStateOfHTML } from '~/libs/siga/scrappers/utils/gxstate.utils';
+import { get } from '~/libs/siga/siga.api';
 
 export async function scheduleController(req: FastifyRequest) {
   const token = req.headers.token as string;

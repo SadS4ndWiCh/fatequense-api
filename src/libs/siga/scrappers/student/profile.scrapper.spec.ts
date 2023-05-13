@@ -1,7 +1,7 @@
+import { extractGXStateOfHTML } from '../utils/gxstate.utils';
 import { getPageHtml } from '~/test/utils/get-page-html.utils';
 
 import { getStudentProfile } from './profile.scrapper';
-import { extractGXStateOfHTML } from '../utils/gxstate.utils';
 
 describe('Profile scrapper function', () => {
   it('should be able to get student profile from HTML', () => {
