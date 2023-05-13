@@ -1,4 +1,18 @@
 {
   "singleQuote": true,
-  "trailingComma": "all"
+  "trailingComma": "all",
+  "importOrder": [
+    "^(.*)/dayjs.config$",
+    "^<THIRD_PARTY_MODULES>",
+    "^(.*)/controllers/(.*)$",
+    "^(.*)/routes/(.*)$",
+    "^(.*)/hooks/(.*)$",
+    "^(.*)/libs/(.*)$",
+    "^(.*)/errors/(.*)$",
+    "^(.*)/utils/(.*)$",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true,
+  "plugins": ["@trivago/prettier-plugin-sort-imports"]
 }
