@@ -1,7 +1,7 @@
+import './libs/dayjs.config';
+
 import cors from '@fastify/cors';
 import fastify from 'fastify';
-
-import './libs/dayjs.config';
 
 import { authRoutes } from './routes/auth.routes';
 import { studentRoutes } from './routes/student.routes';
