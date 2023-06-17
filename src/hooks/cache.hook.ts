@@ -1,12 +1,10 @@
-import type { onResponseHookHandler, onSendHookHandler } from 'fastify';
+import type {
+  DoneFuncWithErrOrRes,
+  FastifyReply,
+  FastifyRequest,
+  HookHandlerDoneFunction,
+} from 'fastify';
 import NodeCache from 'node-cache';
-
-import { getAuthorizationToken } from '~/utils/get-authorization-token.utils';
-
-type UseCacheResponse = {
-  onRequest: onResponseHookHandler;
-  onSend: onSendHookHandler<unknown>;
-};
 
 const CACHE_TTL = 15;
 
@@ -19,34 +17,50 @@ function createCache() {
   };
 }
 
-export function useCache(): UseCacheResponse {
+export function useCache() {
   const cache = createCache();
 
   return {
-    onRequest(req, reply, done) {
-      if (req.method !== 'GET') return done();
+    cached(cacheKey: (req: FastifyRequest) => string | null) {
+      return (
+        req: FastifyRequest,
+        reply: FastifyReply,
+        done: HookHandlerDoneFunction,
+      ) => {
+        if (req.method !== 'GET') return done();
 
-      const token = getAuthorizationToken(req.headers);
-      if (token === null) return done();
+        const key = cacheKey(req);
+        if (!key) return done();
 
-      const response = cache.get(`${token}-${req.routerPath}`);
-      if (!response) return done();
+        const response = cache.get(key);
+        if (!response) return done();
 
-      return reply
-        .status(200)
-        .header('Content-Type', 'application/json; charset=utf-8')
-        .send(response);
+        return reply
+          .status(200)
+          .header('Content-Type', 'application/json; charset=utf-8')
+          .send(response);
+      };
     },
+    store(cacheKey: (req: FastifyRequest) => string | null) {
+      return (
+        req: FastifyRequest,
+        res: FastifyReply,
+        payload: unknown,
+        done: DoneFuncWithErrOrRes,
+      ) => {
+        if (
+          req.method !== 'GET' ||
+          res.statusCode < 200 ||
+          res.statusCode > 299
+        )
+          return done();
 
-    onSend(req, res, payload, done) {
-      if (req.method !== 'GET' || res.statusCode < 200 || res.statusCode > 299)
-        return done();
+        const key = cacheKey(req);
+        if (!key) return done();
 
-      const token = getAuthorizationToken(req.headers);
-      if (token === null) return done();
-
-      cache.set(`${token}-${req.routerPath}`, payload);
-      done();
+        cache.set(key, payload);
+        done();
+      };
     },
   };
 }
