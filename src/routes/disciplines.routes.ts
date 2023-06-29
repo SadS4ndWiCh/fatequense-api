@@ -20,7 +20,7 @@ const disciplineCacheKey = (req: FastifyRequest) => {
 
   if (!code || !token) return null;
 
-  return `${token}-${code}`;
+  return Buffer.from(`${token}${req.url}`, 'base64').toString('base64');
 };
 
 export async function disciplinesRoutes(app: FastifyInstance) {
