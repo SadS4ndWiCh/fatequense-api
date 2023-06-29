@@ -8,7 +8,7 @@ export const studentPartialGradeSchema = z.array(
     examsDates: z.array(
       z.object({
         title: z.string().min(1),
-        startsAt: z.string(),
+        startsAt: z.string().nullish(),
         grade: z.number(),
       }),
     ),
