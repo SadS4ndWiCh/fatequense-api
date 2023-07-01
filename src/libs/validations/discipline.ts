@@ -21,3 +21,7 @@ export const studentDisciplineSchema = z.object({
   }),
   totalAbsencesAllowed: z.coerce.number(),
 });
+
+export const disciplineParamsSchema = z.object({
+  code: z.string().min(1, { message: 'Missing discipline code' }),
+});
