@@ -1,7 +1,7 @@
 import type { FastifyRequest } from 'fastify';
 import { getStudentSchedule } from '~/core/scrapers/siga/handlers/schedule.scraper';
+import { get } from '~/core/scrapers/siga/siga.network';
 
-import { get } from '~/libs/siga/siga.api';
 import { requestHeaderTokenSchema } from '~/libs/validations/token';
 
 export async function scheduleController(req: FastifyRequest) {

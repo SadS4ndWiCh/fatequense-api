@@ -1,12 +1,15 @@
 import { FastifyRequest } from 'fastify';
-
-import { FailedToLogout } from '~/libs/siga/errors/failed-to-logout.error';
-import { extractGXStateOfHTML } from '~/libs/siga/scrappers/utils/gxstate.utils';
-import { get, post } from '~/libs/siga/siga.api';
 import {
   AUTH_COOKIE_FIELD_NAME,
   STATUS_REDIRECT,
-} from '~/libs/siga/siga.consts';
+} from '~/core/scrapers/siga/siga.constants';
+import { get, post } from '~/core/scrapers/siga/siga.network';
+
+import { requestHeaderTokenSchema } from '~/libs/validations/token';
+
+import { FailedToLogout } from '~/core/scrapers/siga/errors/failed-to-logout.error';
+
+import { extractGXStateOfHTML } from '~/core/scrapers/siga/utils/gxstate.utils';
 
 async function getLogoutEvent(token: string) {
   const { data: html } = await get({
@@ -24,7 +27,7 @@ async function getLogoutEvent(token: string) {
 }
 
 export async function logoutController(req: FastifyRequest) {
-  const token = req.headers.token as string;
+  const { token } = requestHeaderTokenSchema.parse(req.headers);
 
   const logoutEvent = await getLogoutEvent(token);
 
