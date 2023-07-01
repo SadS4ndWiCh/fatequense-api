@@ -1,4 +1,6 @@
 import type { FastifyRequest } from 'fastify';
+
+import { FailedToLogin } from '~/core/scrapers/siga/errors/failed-to-login.error';
 import {
   AUTH_COOKIE_FIELD_NAME,
   PASS_INPUT_ID,
@@ -8,8 +10,6 @@ import {
 import { post } from '~/core/scrapers/siga/siga.network';
 
 import { cookieSchema, loginBodySchema } from '~/libs/validations/auth';
-
-import { FailedToLogin } from '~/core/scrapers/siga/errors/failed-to-login.error';
 
 import * as jwt from '~/utils/jwt.utils';
 import { parseCookie } from '~/utils/parse-cookie.utils';

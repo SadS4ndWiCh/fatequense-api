@@ -1,5 +1,6 @@
 import type { FastifyRequest } from 'fastify';
 import { z } from 'zod';
+
 import { getStudentPartialGrade } from '~/core/scrapers/siga/handlers/partial-grade.scraper';
 import { get } from '~/core/scrapers/siga/siga.network';
 

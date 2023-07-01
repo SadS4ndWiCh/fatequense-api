@@ -1,4 +1,5 @@
 import type { FastifyRequest } from 'fastify';
+
 import { getStudentSchedule } from '~/core/scrapers/siga/handlers/schedule.scraper';
 import { get } from '~/core/scrapers/siga/siga.network';
 

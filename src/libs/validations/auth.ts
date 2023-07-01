@@ -1,4 +1,5 @@
 import { z } from 'zod';
+
 import { AUTH_COOKIE_FIELD_NAME } from '~/core/scrapers/siga/siga.constants';
 
 export const loginBodySchema = z.object({

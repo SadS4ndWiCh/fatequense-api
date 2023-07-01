@@ -1,6 +1,7 @@
 import type { IncomingHttpHeaders } from 'http2';
-import { ROUTES } from '~/core/scrapers/siga/siga.constants';
 import type { ValueOf } from '~/types/utils';
+
+import { ROUTES } from '~/core/scrapers/siga/siga.constants';
 
 export type BuildRequestProps = {
   method:

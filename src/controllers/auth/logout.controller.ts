@@ -1,15 +1,14 @@
 import { FastifyRequest } from 'fastify';
+
+import { FailedToLogout } from '~/core/scrapers/siga/errors/failed-to-logout.error';
 import {
   AUTH_COOKIE_FIELD_NAME,
   STATUS_REDIRECT,
 } from '~/core/scrapers/siga/siga.constants';
 import { get, post } from '~/core/scrapers/siga/siga.network';
+import { extractGXStateOfHTML } from '~/core/scrapers/siga/utils/gxstate.utils';
 
 import { requestHeaderTokenSchema } from '~/libs/validations/token';
-
-import { FailedToLogout } from '~/core/scrapers/siga/errors/failed-to-logout.error';
-
-import { extractGXStateOfHTML } from '~/core/scrapers/siga/utils/gxstate.utils';
 
 async function getLogoutEvent(token: string) {
   const { data: html } = await get({

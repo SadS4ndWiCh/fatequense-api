@@ -1,11 +1,11 @@
 import type { FastifyRequest } from 'fastify';
 import { z } from 'zod';
+
+import { DisciplineNotFound } from '~/core/scrapers/siga/errors/discipline-not-found.error';
 import { getStudentPartialAbsences } from '~/core/scrapers/siga/handlers/partial-absences.scraper';
 import { get } from '~/core/scrapers/siga/siga.network';
 
 import { requestHeaderTokenSchema } from '~/libs/validations/token';
-
-import { DisciplineNotFound } from '~/core/scrapers/siga/errors/discipline-not-found.error';
 
 const disciplineParamsSchema = z.object({
   code: z.string().min(1, 'Missing discipline code'),

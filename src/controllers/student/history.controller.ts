@@ -1,4 +1,5 @@
 import type { FastifyRequest } from 'fastify';
+
 import { getStudentHistory } from '~/core/scrapers/siga/handlers/history.scraper';
 import { get } from '~/core/scrapers/siga/siga.network';
 

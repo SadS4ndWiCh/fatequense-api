@@ -1,5 +1,6 @@
 import type { FastifyRequest } from 'fastify';
 import { z } from 'zod';
+
 import { getStudentDiscipline } from '~/core/scrapers/siga/handlers/discipline.scraper';
 import { get } from '~/core/scrapers/siga/siga.network';
 
