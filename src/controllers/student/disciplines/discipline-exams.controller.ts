@@ -1,16 +1,16 @@
 import type { FastifyRequest } from 'fastify';
 import { z } from 'zod';
+import { getStudentPartialGrade } from '~/core/scrapers/siga/handlers/partial-grade.scraper';
+import { get } from '~/core/scrapers/siga/siga.network';
 
-import { getPartialGrade } from '~/libs/siga/scrappers/student/partial-grade.scrapper';
-import { extractGXStateOfHTML } from '~/libs/siga/scrappers/utils/gxstate.utils';
-import { get } from '~/libs/siga/siga.api';
+import { requestHeaderTokenSchema } from '~/libs/validations/token';
 
 const disciplineParamsSchema = z.object({
-  code: z.string().nonempty('Missing discipline code'),
+  code: z.string().min(1, 'Missing discipline code'),
 });
 
 export async function disciplineExamsController(req: FastifyRequest) {
-  const token = req.headers.token as string;
+  const { token } = requestHeaderTokenSchema.parse(req.headers);
   const { code: disciplineCode } = disciplineParamsSchema.parse(req.params);
 
   const { data: html } = await get({
@@ -18,9 +18,9 @@ export async function disciplineExamsController(req: FastifyRequest) {
     token,
   });
 
-  const examsDates = getPartialGrade(extractGXStateOfHTML(html)).find(
+  const examsDates = getStudentPartialGrade(html).find(
     (discipline) => discipline.cod === disciplineCode,
   )?.examsDates;
 
-  return { examsDates };
+  return examsDates;
 }

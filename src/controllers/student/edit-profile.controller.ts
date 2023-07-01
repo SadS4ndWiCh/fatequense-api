@@ -10,7 +10,7 @@ export async function editProfileController(req: FastifyRequest) {
     JSON.parse(req.body as string),
   );
 
-  const { profile } = await profileController(req);
+  const profile = await profileController(req);
 
   await db.student.upsert({
     where: { id: profile.ra },

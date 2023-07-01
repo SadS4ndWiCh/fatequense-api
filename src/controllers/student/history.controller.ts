@@ -1,18 +1,16 @@
 import type { FastifyRequest } from 'fastify';
+import { getStudentHistory } from '~/core/scrapers/siga/handlers/history.scraper';
 
-import { getHistory } from '~/libs/siga/scrappers/student/history.scrapper';
-import { extractGXStateOfHTML } from '~/libs/siga/scrappers/utils/gxstate.utils';
 import { get } from '~/libs/siga/siga.api';
+import { requestHeaderTokenSchema } from '~/libs/validations/token';
 
 export async function historyController(req: FastifyRequest) {
-  const token = req.headers.token as string;
+  const { token } = requestHeaderTokenSchema.parse(req.headers);
 
   const { data: html } = await get({
     route: '/aluno/historicocompleto.aspx',
     token,
   });
 
-  const history = getHistory(extractGXStateOfHTML(html));
-
-  return { history };
+  return getStudentHistory(html);
 }
