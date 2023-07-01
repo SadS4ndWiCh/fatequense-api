@@ -11,6 +11,11 @@ const envSchema = z.object({
   JWT_ALGORITHM: z.string().min(1),
 
   MAX_RATE_LIMIT: z.coerce.number().min(1),
+
+  DATABASE_HOST: z.string().min(1),
+  DATABASE_USER: z.string().min(1),
+  DATABASE_PASS: z.string().min(1),
+  DATABASE_NAME: z.string().min(1),
 });
 
 export const env = envSchema.parse(process.env);
