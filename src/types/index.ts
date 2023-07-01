@@ -1,7 +1,10 @@
 import { z } from 'zod';
 
 import { studentDisciplineSchema } from '~/libs/validations/discipline';
-import { studentHistorySchema } from '~/libs/validations/history';
+import {
+  studentDisciplineHistorySchema,
+  studentHistorySchema,
+} from '~/libs/validations/history';
 import { studentPartialAbsencesSchema } from '~/libs/validations/partial-absences';
 import { studentPartialGradeSchema } from '~/libs/validations/partial-grade';
 import { studentProfileSchema } from '~/libs/validations/profile';
@@ -14,4 +17,7 @@ export type StudentPartialAbsences = z.infer<
 >;
 export type StudentSchedule = z.infer<typeof studentScheduleSchema>;
 export type StudentHistory = z.infer<typeof studentHistorySchema>;
+export type StudentDisciplineHistory = z.infer<
+  typeof studentDisciplineHistorySchema
+>;
 export type StudentDiscipline = z.infer<typeof studentDisciplineSchema>;
