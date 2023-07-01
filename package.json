@@ -16,8 +16,8 @@
     "format": "prettier --write \"./src/**/*ts\"",
     "lint": "eslint \"./src/**/*.ts\" --fix",
     "dev": "tsx watch ./src/main.ts",
-    "test": "jest",
-    "test:watch": "jest --watch"
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.1.1",
