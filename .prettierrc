@@ -4,6 +4,7 @@
   "importOrder": [
     "^(.*)/dayjs.config$",
     "<THIRD_PARTY_MODULES>",
+    "^(.*)/core/(.*)$",
     "^(.*)/controllers/(.*)$",
     "^(.*)/routes/(.*)$",
     "^(.*)/hooks/(.*)$",
