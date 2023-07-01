@@ -1,5 +1,4 @@
 import { FastifyInstance, FastifyRequest } from 'fastify';
-import { z } from 'zod';
 
 import * as student from '~/controllers/student';
 
@@ -10,15 +9,10 @@ import { useRateLimit } from '~/hooks/rate-limit.hook';
 import { env } from '~/utils/env.utils';
 import { getAuthorizationToken } from '~/utils/get-authorization-token.utils';
 
-const disciplineParamsSchema = z.object({
-  code: z.string().nullable(),
-});
-
 const disciplineCacheKey = (req: FastifyRequest) => {
   const token = getAuthorizationToken(req.headers);
-  const { code } = disciplineParamsSchema.parse(req.params);
 
-  if (!code || !token) return null;
+  if (!token) return null;
 
   return Buffer.from(`${token}${req.url}`, 'base64').toString('base64');
 };
