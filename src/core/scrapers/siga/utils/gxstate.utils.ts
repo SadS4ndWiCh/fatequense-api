@@ -41,3 +41,9 @@ export function extractGXStateOfHTML(html: string) {
 }
 
 export type ExtractedGXState = ReturnType<typeof extractGXStateOfHTML>;
+
+export function withGXState<T>(func: (gxstate: ExtractedGXState) => T) {
+  return (html: string) => {
+    return func(extractGXStateOfHTML(html));
+  };
+}
