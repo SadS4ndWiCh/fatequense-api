@@ -10,7 +10,7 @@ function getDisciplineByCod(allDisciplines: IDisciplineRaw[], cod: string) {
   for (const discipline of allDisciplines) {
     if (discipline.ACD_DisciplinaSigla === cod) {
       const title = discipline['ACD_DisciplinaNome'];
-      const [, name, hours] = title.match(/^(.+)<br&gt;(\d+)hs/) ?? [];
+      const [, name, hours] = title.match(/^(.+)<br>(\d+)hs/) ?? [];
 
       return {
         name,
