@@ -5,10 +5,7 @@ import mysql from 'mysql2/promise';
 import { env } from '~/utils/env.utils';
 
 const connection = mysql.createPool({
-  host: env.DATABASE_HOST,
-  user: env.DATABASE_USER,
-  password: env.DATABASE_PASS,
-  database: env.DATABASE_NAME,
+  uri: env.DATABASE_URL,
   multipleStatements: true,
 });
 
