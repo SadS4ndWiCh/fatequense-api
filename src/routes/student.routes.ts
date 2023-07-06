@@ -36,6 +36,7 @@ export async function studentRoutes(app: FastifyInstance) {
   app.get('/schedule', student.scheduleController);
   app.get('/partialGrade', student.partialGradeController);
   app.get('/partialAbsences', student.partialAbsencesController);
+  app.get('/schoolGrade', student.schoolGradeController);
 
   app.register(disciplinesRoutes, { prefix: '/disciplines' });
 }
