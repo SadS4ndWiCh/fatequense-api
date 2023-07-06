@@ -1,10 +1,11 @@
 import './libs/dayjs.config';
 
-import fastify from 'fastify';
 import cors from '@fastify/cors';
+import fastify from 'fastify';
 
-import { studentRoutes } from './routes/student.routes';
 import { authRoutes } from './routes/auth.routes';
+import { studentRoutes } from './routes/student.routes';
+
 import { defaultErrorHandler } from './errors/default.handler';
 
 export const app = fastify()

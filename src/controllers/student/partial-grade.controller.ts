@@ -1,17 +1,17 @@
 import type { FastifyRequest } from 'fastify';
 
-import { get } from '~/libs/siga/siga.api';
-import { getPartialGrade } from '~/libs/siga/scrappers/student/partial-grade.scrapper';
-import { extractGXStateOfHTML } from '~/libs/siga/scrappers/utils/gxstate.utils';
+import { getStudentPartialGrade } from '~/core/scrapers/siga/handlers/partial-grade.scraper';
+import { get } from '~/core/scrapers/siga/siga.network';
+
+import { requestHeaderTokenSchema } from '~/libs/validations/token';
 
 export async function partialGradeController(req: FastifyRequest) {
-  const token = req.headers.token as string;
+  const { token } = requestHeaderTokenSchema.parse(req.headers);
+
   const { data: html } = await get({
     route: '/aluno/notasparciais.aspx',
     token,
   });
 
-  const partialGrade = getPartialGrade(extractGXStateOfHTML(html));
-
-  return { partialGrade };
+  return getStudentPartialGrade(html);
 }

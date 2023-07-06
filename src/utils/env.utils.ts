@@ -1,7 +1,7 @@
 import * as dotenv from 'dotenv';
-dotenv.config({ path: __dirname + '/../../.env.local' });
-
 import { z } from 'zod';
+
+dotenv.config();
 
 const envSchema = z.object({
   PORT: z.string().transform((port) => Number(port)),
@@ -9,6 +9,10 @@ const envSchema = z.object({
   JWT_SECRET_KEY: z.string().min(1),
   JWT_EXPIRES_IN: z.string().min(1),
   JWT_ALGORITHM: z.string().min(1),
+
+  MAX_RATE_LIMIT: z.coerce.number().min(1),
+
+  DATABASE_URL: z.string().min(1),
 });
 
 export const env = envSchema.parse(process.env);

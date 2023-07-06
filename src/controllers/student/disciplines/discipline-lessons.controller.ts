@@ -1,17 +1,14 @@
 import type { FastifyRequest } from 'fastify';
-import { z } from 'zod';
 
-import { get } from '~/libs/siga/siga.api';
-import { getPartialAbsences } from '~/libs/siga/scrappers/student/partial-absences.scrapper';
-import { extractGXStateOfHTML } from '~/libs/siga/scrappers/utils/gxstate.utils';
-import { DisciplineNotFound } from '~/libs/siga/errors/discipline-not-found.error';
+import { DisciplineNotFound } from '~/core/scrapers/siga/errors/discipline-not-found.error';
+import { getStudentPartialAbsences } from '~/core/scrapers/siga/handlers/partial-absences.scraper';
+import { get } from '~/core/scrapers/siga/siga.network';
 
-const disciplineParamsSchema = z.object({
-  code: z.string().nonempty('Missing discipline code'),
-});
+import { disciplineParamsSchema } from '~/libs/validations/discipline';
+import { requestHeaderTokenSchema } from '~/libs/validations/token';
 
 export async function disciplineLessonsController(req: FastifyRequest) {
-  const token = req.headers.token as string;
+  const { token } = requestHeaderTokenSchema.parse(req.headers);
   const { code: disciplineCode } = disciplineParamsSchema.parse(req.params);
 
   const { data: html } = await get({
@@ -19,7 +16,7 @@ export async function disciplineLessonsController(req: FastifyRequest) {
     token,
   });
 
-  const disciplineLessons = getPartialAbsences(extractGXStateOfHTML(html)).find(
+  const disciplineLessons = getStudentPartialAbsences(html).find(
     (discipline) => discipline.cod === disciplineCode,
   )?.lessons;
 
@@ -27,5 +24,5 @@ export async function disciplineLessonsController(req: FastifyRequest) {
     throw new DisciplineNotFound();
   }
 
-  return { lessons: disciplineLessons };
+  return disciplineLessons;
 }

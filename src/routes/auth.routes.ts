@@ -2,6 +2,7 @@ import type { FastifyInstance } from 'fastify';
 
 import { loginController } from '~/controllers/auth/login.controller';
 import { logoutController } from '~/controllers/auth/logout.controller';
+
 import { useAuth } from '~/hooks/auth.hook';
 import { useRateLimit } from '~/hooks/rate-limit.hook';
 

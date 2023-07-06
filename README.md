@@ -15,7 +15,7 @@ Uma api não oficial do Siga para conseguir pegar suas informações de estudant
 - [JWT](https://jwt.io)
 - [Urllib](https://github.com/node-modules/urllib)
 - [Cheerio](https://cheerio.js.org)
-- [Jest](https://jestjs.io)
+- [Vitest](https://vitest.dev/)
 
 ## 🚀️ Rodando localmente
 
@@ -44,6 +44,10 @@ PORT= # Definir em qual porta o servidor vai rodar
 JWT_SECRET_KEY= # Definir a chave para o JWT
 JWT_EXPIRES_IN= # Definir o tempo de expiração do JWT
 JWT_ALGORITHM= # Definir qual algorítimo irá usar na chave
+
+MAX_RATE_LIMIT= # Definir a quantidade máxima de requisições por minuto
+
+DATABASE_URL= # Definir a URL de conexão com o banco de dados
 ```
 
 3. Execute a aplicação
@@ -59,3 +63,7 @@ $ pnpm test
 # Testes unitários em modo 'watch'
 $ pnpm test:watch
 ```
+
+## Creditos
+
+Esta aplicação é feita com base em uma biblioteca chamada [fatec-api](https://github.com/filipemeneses/fatec-api/tree/master) desenvolvida pelo [filipemeneses](https://github.com/filipemeneses), onde usei a parte de fazer o scraping no SIGA.

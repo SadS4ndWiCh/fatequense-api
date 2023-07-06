@@ -1,5 +1,6 @@
 import type { FastifyError, FastifyReply, FastifyRequest } from 'fastify';
-import { SigaError } from '~/libs/siga/errors/siga-error.error';
+
+import { SigaError } from '~/core/scrapers/siga/errors/siga-error.error';
 
 export function defaultErrorHandler(
   err: FastifyError,
