@@ -1,5 +1,6 @@
 import type { FastifyRequest } from 'fastify';
 
+import { DisciplineNotFound } from '~/core/scrapers/siga/errors/discipline-not-found.error';
 import { getStudentPartialGrade } from '~/core/scrapers/siga/handlers/partial-grade.scraper';
 import { get } from '~/core/scrapers/siga/siga.network';
 
@@ -18,6 +19,10 @@ export async function disciplineExamsController(req: FastifyRequest) {
   const examsDates = getStudentPartialGrade(html).find(
     (discipline) => discipline.cod === disciplineCode,
   )?.examsDates;
+
+  if (!examsDates) {
+    throw new DisciplineNotFound();
+  }
 
   return examsDates;
 }
