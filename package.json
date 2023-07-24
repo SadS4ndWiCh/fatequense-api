@@ -38,6 +38,7 @@
   "dependencies": {
     "@fastify/cors": "^8.2.1",
     "@fastify/rate-limit": "^8.0.0",
+    "@fastify/redis": "^6.1.1",
     "cheerio": "1.0.0-rc.12",
     "dayjs": "^1.11.7",
     "dotenv": "^16.0.3",
