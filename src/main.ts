@@ -1,9 +1,11 @@
+import { env } from './utils/env.utils';
+
 import { app } from './app';
 
 app.listen(
   {
-    host: '0.0.0.0',
-    port: process.env.PORT ? Number(process.env.PORT) : 3333,
+    host: env.HOST,
+    port: process.env.PORT ? env.PORT : 3333,
   },
   (err, addr) => {
     if (err) throw new Error(err.message);
