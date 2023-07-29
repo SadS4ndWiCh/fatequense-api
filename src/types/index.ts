@@ -1,6 +1,10 @@
 import { z } from 'zod';
 
-import { studentDisciplineSchema } from '~/libs/validations/discipline';
+import {
+  studentAllDisciplineShema,
+  studentDisciplineDetailsSchema,
+  studentDisciplineSchema,
+} from '~/libs/validations/discipline';
 import {
   studentDisciplineHistorySchema,
   studentHistorySchema,
@@ -25,6 +29,10 @@ export type StudentDisciplineHistory = z.infer<
   typeof studentDisciplineHistorySchema
 >;
 export type StudentDiscipline = z.infer<typeof studentDisciplineSchema>;
+export type studentAllDiscipline = z.infer<typeof studentAllDisciplineShema>;
+export type StudentDisciplineDetails = z.infer<
+  typeof studentDisciplineDetailsSchema
+>;
 export type StudentSchoolGrade = z.infer<typeof schoolGradeSchema>;
 export type StudentSchoolGradeDiscipline = z.infer<
   typeof schoolGradeDisciplineSchema
