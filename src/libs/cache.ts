@@ -7,9 +7,9 @@ export const THREE_HOURS_IN_SECONDS = 60 * 60 * 3;
 export const cacheKey = (req: FastifyRequest) => {
   const token = getAuthorizationToken(req.headers);
 
-  if (!token || req.routerPath.includes('/disciplines/:code')) return null;
+  if (!token) return null;
 
-  return `${token}-${req.routerPath}`;
+  return `${token}-${req.url}`;
 };
 
 export const cacheOptions = {
