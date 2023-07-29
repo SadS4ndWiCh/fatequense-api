@@ -10,8 +10,6 @@ import { cacheKey, cacheOptions } from '~/libs/cache';
 
 import { env } from '~/utils/env.utils';
 
-import { disciplinesRoutes } from './disciplines.routes';
-
 export async function studentRoutes(app: FastifyInstance) {
   await useRateLimit(app, { max: env.MAX_RATE_LIMIT });
 
@@ -29,5 +27,20 @@ export async function studentRoutes(app: FastifyInstance) {
   app.get('/partial-absences', cache.store(student.partialAbsencesController));
   app.get('/school-grade', cache.store(student.schoolGradeController));
 
-  app.register(disciplinesRoutes, { prefix: '/disciplines' });
+  app.get(
+    '/disciplines/',
+    cache.store(student.disciplines.allDisciplineController),
+  );
+  app.get(
+    '/disciplines/:code',
+    cache.store(student.disciplines.disciplineController),
+  );
+  app.get(
+    '/disciplines/:code/lessons',
+    cache.store(student.disciplines.disciplineLessonsController),
+  );
+  app.get(
+    '/disciplines/:code/exams',
+    cache.store(student.disciplines.disciplineExamsController),
+  );
 }
