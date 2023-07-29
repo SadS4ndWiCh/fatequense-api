@@ -1,30 +1,21 @@
 import dayjs from 'dayjs';
-import { StudentSchedule } from '~/types';
-import { IDisciplineRaw } from '~/types/core';
+import { StudentDiscipline, StudentSchedule } from '~/types';
 
 import { studentScheduleSchema } from '~/libs/validations/schedule';
 
 import { withGXState } from '../utils/gxstate.utils';
-
-function getDisciplineByCod(allDisciplines: IDisciplineRaw[], cod: string) {
-  for (const discipline of allDisciplines) {
-    if (discipline.ACD_DisciplinaSigla === cod) {
-      const title = discipline['ACD_DisciplinaNome'];
-      const [, name, hours] =
-        title.match(/^(.+)(?:<br\\?&?gt;|<br\\?>)(\d+)hs/) ?? [];
-
-      return {
-        name,
-        hoursPerLesson: Number(hours),
-        teacherName: discipline['Pro_PessoalNome'],
-      };
-    }
-  }
-}
+import { parseDiscipline } from '../utils/parse-discipline.utils';
 
 export const getStudentSchedule = withGXState<StudentSchedule>(
   ({ $, ...gxstate }) => {
-    const allDisciplines = gxstate.get('vALU_ALUNOHISTORICOITEM_SDT');
+    const allDisciplines = gxstate
+      .get('vALU_ALUNOHISTORICOITEM_SDT')
+      .map(parseDiscipline)
+      .reduce(
+        (prev, curr) => prev.set(curr.code, curr),
+        new Map<string, StudentDiscipline>(),
+      );
+
     const dataGridTags = [
       '[name="Grid2ContainerDataV"]',
       '[name="Grid3ContainerDataV"]',
@@ -58,7 +49,7 @@ export const getStudentSchedule = withGXState<StudentSchedule>(
             'DD/MM/YYYY HH:mm',
           ).add(incDays, 'day');
 
-          const discipline = getDisciplineByCod(allDisciplines, cod);
+          const discipline = allDisciplines.get(cod);
 
           return {
             cod,
