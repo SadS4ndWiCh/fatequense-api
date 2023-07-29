@@ -11,6 +11,13 @@ export const studentDisciplineSchema = z.object({
         .toLowerCase()
         .replace(/(^|\s)\S/g, (char) => char.toUpperCase()),
     ),
+  workload: z.number(),
+  totalAbsencesAllowed: z.number(),
+});
+
+export const studentAllDisciplineShema = z.array(studentDisciplineSchema);
+
+export const studentDisciplineDetailsSchema = studentDisciplineSchema.extend({
   syllabus: z.string().min(1),
   goal: z.string().min(1),
   workload: z.object({
@@ -19,7 +26,6 @@ export const studentDisciplineSchema = z.object({
     practical: z.coerce.number(),
     total: z.coerce.number(),
   }),
-  totalAbsencesAllowed: z.coerce.number(),
 });
 
 export const disciplineParamsSchema = z.object({
