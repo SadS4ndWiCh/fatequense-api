@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "@fastify/cors": "^8.2.1",
+    "@fastify/helmet": "^11.0.0",
     "@fastify/rate-limit": "^8.0.0",
     "@fastify/redis": "^6.1.1",
     "cheerio": "1.0.0-rc.12",
