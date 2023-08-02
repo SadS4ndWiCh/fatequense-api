@@ -1,4 +1,5 @@
 import { request } from 'urllib';
+// import UserAgent from 'user-agents';
 import {
   BuildRequestProps,
   GetRequestProps,
@@ -12,7 +13,7 @@ import {
   BASE_URL,
   GX_STATE,
   STATUS_REDIRECT,
-  USER_AGENT,
+  USER_AGENTS,
 } from './siga.constants';
 
 function buildRequest({
@@ -30,11 +31,17 @@ function buildRequest({
     data = data.GXState ? data : { ...data, GXState: GX_STATE };
   }
 
+  const userAgent = USER_AGENTS[Math.floor(Math.random() * USER_AGENTS.length)];
+
   return {
     url: url.href,
     options: {
       data,
-      headers: { 'user-agent': USER_AGENT, origin: BASE_URL, ...headers },
+      headers: {
+        'user-agent': userAgent,
+        origin: BASE_URL,
+        ...headers,
+      },
       method,
       maxRedirects: 0,
     },
