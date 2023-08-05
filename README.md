@@ -38,9 +38,6 @@ $ touch .env.local
  - 3.1. Insira as seguintes variáveis ambiente no arquivo:
 ```env
 // .env.local
-
-PORT= # Definir em qual porta o servidor vai rodar
-
 JWT_SECRET_KEY= # Definir a chave para o JWT
 JWT_EXPIRES_IN= # Definir o tempo de expiração do JWT
 JWT_ALGORITHM= # Definir qual algorítimo irá usar na chave
@@ -48,6 +45,7 @@ JWT_ALGORITHM= # Definir qual algorítimo irá usar na chave
 MAX_RATE_LIMIT= # Definir a quantidade máxima de requisições por minuto
 
 DATABASE_URL= # Definir a URL de conexão com o banco de dados
+UPSTASH_REDIS_REST_URL= # Definir a URL do REDIS
 ```
 
 3. Execute a aplicação
