@@ -10,5 +10,7 @@ export const studentDisciplineHistorySchema = z.object({
   renunciationAt: z.string().nullable(),
   isApproved: z.boolean(),
 });
+export type DisciplineHistory = z.infer<typeof studentDisciplineHistorySchema>;
 
 export const studentHistorySchema = z.array(studentDisciplineHistorySchema);
+export type History = z.infer<typeof studentHistorySchema>;

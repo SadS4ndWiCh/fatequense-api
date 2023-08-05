@@ -12,5 +12,4 @@ export const studentScheduleSchema = z.array(
     }),
   ),
 );
-
 export type Schedule = z.infer<typeof studentScheduleSchema>;

@@ -19,6 +19,7 @@ export const schoolGradeDisciplineSchema = z
 
     return true;
   });
+export type SchoolGradeDiscipline = z.infer<typeof schoolGradeDisciplineSchema>;
 
 export const schoolGradeSchema = z.array(
   z.object({
@@ -26,3 +27,4 @@ export const schoolGradeSchema = z.array(
     disciplines: z.array(schoolGradeDisciplineSchema),
   }),
 );
+export type SchoolGrade = z.infer<typeof schoolGradeSchema>;

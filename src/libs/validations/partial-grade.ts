@@ -14,5 +14,4 @@ export const studentPartialGradeSchema = z.array(
     ),
   }),
 );
-
 export type PartialGrade = z.infer<typeof studentPartialGradeSchema>;

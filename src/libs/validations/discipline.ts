@@ -14,8 +14,10 @@ export const studentDisciplineSchema = z.object({
   workload: z.number(),
   totalAbsencesAllowed: z.number(),
 });
+export type Discipline = z.infer<typeof studentDisciplineSchema>;
 
 export const studentAllDisciplineShema = z.array(studentDisciplineSchema);
+export type AllDisciplines = z.infer<typeof studentAllDisciplineShema>;
 
 export const studentDisciplineDetailsSchema = studentDisciplineSchema.extend({
   syllabus: z.string().min(1),
@@ -27,7 +29,9 @@ export const studentDisciplineDetailsSchema = studentDisciplineSchema.extend({
     total: z.coerce.number(),
   }),
 });
+export type DisciplineDetails = z.infer<typeof studentDisciplineDetailsSchema>;
 
 export const disciplineParamsSchema = z.object({
   code: z.string().min(1, { message: 'Missing discipline code' }),
 });
+export type DisciplineParams = z.infer<typeof disciplineParamsSchema>;

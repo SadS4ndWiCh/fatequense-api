@@ -22,3 +22,4 @@ export const studentProfileSchema = z.object({
     state: z.string(),
   }),
 });
+export type Profile = z.infer<typeof studentProfileSchema>;
