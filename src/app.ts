@@ -1,15 +1,18 @@
 import './libs/dayjs.config';
 
 import cors from '@fastify/cors';
+import helmet from '@fastify/helmet';
 import fastify from 'fastify';
 
-import { authRoutes } from './routes/auth.routes';
-import { studentRoutes } from './routes/student.routes';
+import { routes } from './routes/index.routes';
 
 import { defaultErrorHandler } from './errors/default.handler';
 
+import { env } from './utils/env.utils';
+
 export const app = fastify()
   .register(cors, { origin: true })
-  .register(studentRoutes, { prefix: '/student' })
-  .register(authRoutes, { prefix: '/auth' })
+  .register(helmet, { global: true })
+  .register(import('@fastify/redis'), { url: env.UPSTASH_REDIS_REST_URL })
+  .register(routes, { prefix: '/' })
   .setErrorHandler(defaultErrorHandler);

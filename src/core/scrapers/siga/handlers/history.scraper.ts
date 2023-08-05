@@ -1,14 +1,14 @@
-import { StudentDisciplineHistory, StudentHistory } from '~/types';
 import { IDisciplineHistoryRaw } from '~/types/core';
 
 import { studentHistorySchema } from '~/libs/validations/history';
 
 import { withGXState } from '../utils/gxstate.utils';
 
-export const getStudentHistory = withGXState<StudentHistory>((gxstate) => {
+export const getStudentHistory = withGXState((gxstate) => {
   return studentHistorySchema.parse(
-    gxstate.get('vALU_ALUNONOTAS_SDT').map(
-      (disciplineHistory: IDisciplineHistoryRaw): StudentDisciplineHistory => ({
+    gxstate
+      .get('vALU_ALUNONOTAS_SDT')
+      .map((disciplineHistory: IDisciplineHistoryRaw) => ({
         cod: disciplineHistory['ACD_DisciplinaSigla'],
         disciplineName: disciplineHistory['ACD_DisciplinaNome'],
         description: disciplineHistory['GER_TipoObservacaoHistoricoDescricao'],
@@ -22,7 +22,6 @@ export const getStudentHistory = withGXState<StudentHistory>((gxstate) => {
           ? disciplineHistory['ACD_AlunoHistoricoItemDesistenciaData']
           : null,
         isApproved: disciplineHistory['ACD_AlunoHistoricoItemAprovada'] === 1,
-      }),
-    ),
+      })),
   );
 });

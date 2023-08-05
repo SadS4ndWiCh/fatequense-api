@@ -1,6 +1,6 @@
 {
   "name": "fatequense-api",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "An unofficial Siga api to get student informations easily",
   "author": "Caio Vinícius <caiocamargo.ct@gmail.com>",
   "keywords": [],
@@ -37,7 +37,9 @@
   },
   "dependencies": {
     "@fastify/cors": "^8.2.1",
+    "@fastify/helmet": "^11.0.0",
     "@fastify/rate-limit": "^8.0.0",
+    "@fastify/redis": "^6.1.1",
     "cheerio": "1.0.0-rc.12",
     "dayjs": "^1.11.7",
     "dotenv": "^16.0.3",

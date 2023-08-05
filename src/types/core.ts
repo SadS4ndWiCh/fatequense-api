@@ -30,6 +30,7 @@ export interface IDisciplineRaw {
   ACD_DisciplinaSigla: string;
   ACD_DisciplinaNome: string;
   Pro_PessoalNome: string;
+  ACD_TurmaLetra: string;
 }
 
 export interface IDisciplineLessonsRaw {

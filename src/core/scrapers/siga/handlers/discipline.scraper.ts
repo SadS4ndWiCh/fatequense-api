@@ -1,6 +1,4 @@
-import { StudentDiscipline } from '~/types';
-
-import { studentDisciplineSchema } from '~/libs/validations/discipline';
+import { studentDisciplineDetailsSchema } from '~/libs/validations/discipline';
 
 import { DisciplineNotFound } from '../errors/discipline-not-found.error';
 
@@ -8,7 +6,7 @@ import { withGXState } from '../utils/gxstate.utils';
 
 import { MINIMUM_ATTENDANCE_PERCENTAGE } from '../siga.constants';
 
-export const getStudentDiscipline = withGXState<StudentDiscipline>(({ $ }) => {
+export const getStudentDiscipline = withGXState(({ $ }) => {
   const isDisciplineInvalid = !!$('#gxErrorViewer').text();
   if (isDisciplineInvalid) throw new DisciplineNotFound();
 
@@ -18,7 +16,7 @@ export const getStudentDiscipline = withGXState<StudentDiscipline>(({ $ }) => {
   const totalAbsencesAllowed =
     totalWorkload - totalWorkload * MINIMUM_ATTENDANCE_PERCENTAGE;
 
-  return studentDisciplineSchema.parse({
+  return studentDisciplineDetailsSchema.parse({
     name: $('#span_W0005vACD_DISCIPLINANOME').text(),
     code: $('#span_W0005vSHOW_ACD_DISCIPLINASIGLA').text(),
     class: $('#span_W0005vACD_TURMALETRA').text(),

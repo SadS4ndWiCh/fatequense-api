@@ -16,5 +16,4 @@ export const studentPartialAbsencesSchema = z.array(
     ),
   }),
 );
-
 export type PartialAbsences = z.infer<typeof studentPartialAbsencesSchema>;

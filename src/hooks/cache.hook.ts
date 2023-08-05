@@ -1,65 +1,45 @@
+import type { FastifyReply, FastifyRequest } from 'fastify';
 import type {
-  DoneFuncWithErrOrRes,
-  FastifyReply,
-  FastifyRequest,
-  HookHandlerDoneFunction,
-} from 'fastify';
-import NodeCache from 'node-cache';
+  CacheStoreOptions,
+  RouteController,
+  UseCacheProps,
+} from '~/types/hooks';
 
-const CACHE_TTL = 15;
-
-function createCache() {
-  const cache = new NodeCache();
-
+export function useCache({ db, cacheKey }: UseCacheProps) {
   return {
-    get: (key: string) => cache.get(key),
-    set: (key: string, value: unknown) => cache.set(key, value, CACHE_TTL),
-  };
-}
-
-export function useCache() {
-  const cache = createCache();
-
-  return {
-    cached(cacheKey: (req: FastifyRequest) => string | null) {
-      return (
-        req: FastifyRequest,
-        reply: FastifyReply,
-        done: HookHandlerDoneFunction,
-      ) => {
-        if (req.method !== 'GET') return done();
+    cached() {
+      return async (req: FastifyRequest, reply: FastifyReply) => {
+        if (req.method !== 'GET') return;
 
         const key = cacheKey(req);
-        if (!key) return done();
+        if (!key) return;
 
-        const response = cache.get(key);
-        if (!response) return done();
+        const cachedPayload = await db.get(key);
+        if (!cachedPayload) return;
 
         return reply
           .status(200)
           .header('Content-Type', 'application/json; charset=utf-8')
-          .send(response);
+          .send(cachedPayload);
       };
     },
-    store(cacheKey: (req: FastifyRequest) => string | null) {
-      return (
-        req: FastifyRequest,
-        res: FastifyReply,
-        payload: unknown,
-        done: DoneFuncWithErrOrRes,
-      ) => {
-        if (
-          req.method !== 'GET' ||
-          res.statusCode < 200 ||
-          res.statusCode > 299
-        )
-          return done();
+    store(controller: RouteController, options: CacheStoreOptions = {}) {
+      return async (req: FastifyRequest) => {
+        const payload = await controller(req);
+
+        if (req.method !== 'GET' || !payload) return payload;
 
         const key = cacheKey(req);
-        if (!key) return done();
+        if (!key) return payload;
 
-        cache.set(key, payload);
-        done();
+        await db.set(
+          key,
+          JSON.stringify(payload),
+          'EX',
+          options.expireIn ?? 60 * 60,
+        ); // Expire in 1h
+
+        return payload;
       };
     },
   };
