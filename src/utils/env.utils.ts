@@ -10,6 +10,7 @@ const envSchema = z.object({
   JWT_SECRET_KEY: z.string().min(1),
   JWT_EXPIRES_IN: z.string().min(1),
   JWT_ALGORITHM: z.string().min(1),
+  COOKIE_SECRET_KEY: z.string().min(1),
 
   MAX_RATE_LIMIT: z.coerce.number().min(1),
 

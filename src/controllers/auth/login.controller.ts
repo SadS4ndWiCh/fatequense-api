@@ -11,6 +11,7 @@ import { post } from '~/core/scrapers/siga/siga.network';
 
 import { cookieSchema, loginBodySchema } from '~/libs/validations/auth';
 
+import { encrypt } from '~/utils/crypto';
 import * as jwt from '~/utils/jwt.utils';
 import { parseCookie } from '~/utils/parse-cookie.utils';
 
@@ -31,7 +32,9 @@ export async function loginController(req: FastifyRequest) {
     parseCookie(String(res.headers['set-cookie'])),
   );
 
-  const token = jwt.sign({ payload: { session } });
+  const token = jwt.sign({
+    payload: { session: encrypt(session).toString('base64') },
+  });
 
   return { token };
 }
