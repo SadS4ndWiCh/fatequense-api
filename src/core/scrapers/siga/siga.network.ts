@@ -1,5 +1,4 @@
 import { request } from 'urllib';
-// import UserAgent from 'user-agents';
 import {
   BuildRequestProps,
   GetRequestProps,
@@ -7,6 +6,8 @@ import {
 } from '~/types/core';
 
 import { FailedToFetch } from './errors/failed-to-fetch.error';
+
+import { decrypt } from '~/utils/crypto';
 
 import {
   AUTH_COOKIE_FIELD_NAME,
@@ -53,7 +54,7 @@ export async function get({ route, token, headers, params }: GetRequestProps) {
     route,
     method: 'GET',
     headers: {
-      cookie: `${AUTH_COOKIE_FIELD_NAME}=${token}`,
+      cookie: `${AUTH_COOKIE_FIELD_NAME}=${decrypt(token)}`,
       ...headers,
     },
     params,
